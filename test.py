@@ -1,0 +1,125 @@
+from typing import Optional
+
+
+class Solution:
+    def twoSum(self, nums: list[int], target: int) -> list[int]:
+        seen = {}
+        for i, value in enumerate(nums):
+            remaining = target - value
+
+            if remaining in seen:
+                return [seen[remaining], i]
+
+            seen[value] = i
+
+
+test = Solution()
+
+print(test.twoSum([3, 2, 3], 6))
+
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        res = dummy = ListNode()
+        carry = 0
+        while l1 or l2:
+            v1, v2 = 0, 0
+            if l1:
+                v1, l1 = l1.val, l1.next
+            if l2:
+                v2, l2 = l2.val, l2.next
+
+            val = carry + v1 + v2
+            res.next = ListNode(val % 10)
+            res, carry = res.next, val//10
+
+        if carry:
+            res.next = ListNode(carry)
+
+        return dummy.next
+
+
+test = Solution()
+
+print(test.addTwoNumbers([5, 4], [6, 3]))
+
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        used = {}
+        max_length = start = 0
+        for i, c in enumerate(s):
+            if c in used and start <= used[c]:
+                start = used[c] + 1
+            else:
+                max_length = max(max_length, i - start + 1)
+
+            used[c] = i
+
+        return max_length
+
+
+test = Solution()
+
+print(test.lengthOfLongestSubstring("tmmzuxt"))
+
+
+class Solution(object):
+    def convert(self, s: str, numRows: int) -> str:
+        if numRows == 1 or numRows >= len(s):
+            return s
+
+        L = [''] * numRows
+        index, step = 0, 1
+
+        for x in s:
+            L[index] += x
+            if index == 0:
+                step = 1
+            elif index == numRows - 1:
+                step = -1
+            index += step
+
+        return ''.join(L)
+
+
+def myAtoi(s: str) -> int:
+    if len(s) == 0:
+        return 0
+    ls = list(s.strip())
+
+    sign = -1 if ls[0] == '-' else 1
+    if ls[0] in ['-', '+']:
+        del ls[0]
+    ret, i = 0, 0
+    while i < len(ls) and ls[i].isdigit():
+        ret = ret*10 + ord(ls[i]) - ord('0')
+        i += 1
+    return max(-2**31, min(sign * ret, 2**31-1))
+
+
+print(myAtoi('-2147483649'))
+
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        opening = {
+            '(': ')',
+            '{': '}',
+            '[': ']'
+        }
+
+        stack = []
+        for c in s:
+            if c in opening:
+                stack.append(c)
+            elif len(stack) == 0 or opening[stack.pop()] != c:
+                return False
+
+        return len(stack) == 0
