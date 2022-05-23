@@ -15,7 +15,7 @@ class Solution:
 
 test = Solution()
 
-print(test.twoSum([3, 2, 3], 6))
+# print(test.twoSum([3, 2, 3], 6))
 
 
 class ListNode:
@@ -47,7 +47,7 @@ class Solution:
 
 test = Solution()
 
-print(test.addTwoNumbers([5, 4], [6, 3]))
+# print(test.addTwoNumbers([5, 4], [6, 3]))
 
 
 class Solution:
@@ -67,7 +67,7 @@ class Solution:
 
 test = Solution()
 
-print(test.lengthOfLongestSubstring("tmmzuxt"))
+# print(test.lengthOfLongestSubstring("tmmzuxt"))
 
 
 class Solution(object):
@@ -104,7 +104,7 @@ def myAtoi(s: str) -> int:
     return max(-2**31, min(sign * ret, 2**31-1))
 
 
-print(myAtoi('-2147483649'))
+# print(myAtoi('-2147483649'))
 
 
 class Solution:
@@ -126,7 +126,7 @@ class Solution:
 
 
 class Solution:
-    def generateParenthesis(self, n: int) -> List[str]:
+    def generateParenthesis(self, n: int) -> list[str]:
         def generate(p, left, right, parens=[]):
             if left:
                 generate(p + '(', left-1, right)
@@ -136,3 +136,8 @@ class Solution:
                 parens += p,
             return parens
         return generate('', n, n)
+
+
+test = Solution()
+
+print(test.generateParenthesis(3))
