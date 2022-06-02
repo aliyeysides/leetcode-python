@@ -190,3 +190,23 @@ class Solution:
                 r += 1
 
         return res
+
+
+class Solution:
+    # Function to return Breadth First Traversal of given graph.
+    def bfsOfGraph(self, V, adj):
+        visited = []
+        queue = []
+        res = []
+
+        visited.append(0)
+        queue.append(0)
+
+        while queue:
+            vertex = queue.pop(0)
+            res.append(vertex)
+            for edge in adj[vertex]:
+                if edge not in visited:
+                    queue.append(edge)
+                    visited.append(edge)
+        return res
