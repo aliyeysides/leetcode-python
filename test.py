@@ -258,6 +258,9 @@ class Node:
         self.right = None
 
     def levelOrder(self, root):
+        if root is Node:
+            return
+
         res = []
         queue = []
         queue.append(root)
