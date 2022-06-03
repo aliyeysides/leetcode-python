@@ -37,3 +37,8 @@ g.addEdge(2, 3)
 g.addEdge(3, 3)
 
 print(g.BFS(2))
+
+"""
+Time Complexity: O(V+E), where V is the number of nodes and E is the number of edges.
+Auxiliary Space: O(V)
+"""

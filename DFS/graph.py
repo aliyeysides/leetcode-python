@@ -30,3 +30,8 @@ g.addEdge(2, 3)
 g.addEdge(3, 3)
 
 print(g.DFS(2))
+
+"""
+Time complexity: O(V + E), where V is the number of vertices and E is the number of edges in the graph.
+Space Complexity: O(V), since an extra visited array of size V is required.
+"""

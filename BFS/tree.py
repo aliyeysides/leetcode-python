@@ -29,3 +29,8 @@ root.left.left = Node(4)
 root.left.right = Node(5)
 
 print(root.levelOrder(root))
+
+"""
+Time Complexity: O(n) where n is the number of nodes in the binary tree
+Auxiliary Space: O(n) where n is the number of nodes in the binary tree
+"""
