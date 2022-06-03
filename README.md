@@ -1,3 +1,1 @@
-My answers to leetcode questions written in python.
-
-Questions: https://leetcode.com/list/?selectedList=exsawuri
+Some leetcode answers and various data structure traversal algos and implementations written in python.
