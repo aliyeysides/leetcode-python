@@ -24,7 +24,9 @@ class Graph:
 g = Graph()
 g.addEdge(0, 1)
 g.addEdge(0, 2)
-g.addEdge(0, 4)
-g.addEdge(4, 3)
+g.addEdge(1, 2)
+g.addEdge(2, 0)
+g.addEdge(2, 3)
+g.addEdge(3, 3)
 
-print(g.DFS(0))
+print(g.DFS(2))
