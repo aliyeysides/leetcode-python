@@ -8,7 +8,7 @@ class Graph:
     def addEdge(self, vertex, edge):
         self.graph[vertex].append(edge)
 
-    def BFS(self, s):
+    def BFS(self, s) -> list[int]:
         visited = []
         queue = []
         res = []

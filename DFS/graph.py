@@ -1,18 +1,30 @@
-class DFSGraph:
-    def dfsOfGraph(self, V, adj):
-        visit, result = [], []
+from collections import defaultdict
 
-        def dfs(node, visit, result):
-            result.append(node)
-            visit.append(node)
-            for i in adj[node]:
-                if i not in visit:
-                    dfs(i, visit, result)
 
-        dfs(0, visit, result)
+class Graph:
+    def __init__(self):
+        self.graph = defaultdict(list)
 
+    def addEdge(self, vertex, edge):
+        self.graph[vertex].append(edge)
+
+    def DFSearch(self, node, visited, result):
+        result.append(node)
+        visited.append(node)
+        for edge in self.graph[node]:
+            if edge not in visited:
+                self.DFSearch(edge, visited, result)
+
+    def DFS(self, node) -> list[int]:
+        visited, result = [], []
+        self.DFSearch(node, visited, result)
         return result
 
 
-dfsG = DFSGraph()
-print(dfsG.dfsOfGraph(5, {0: [1, 2, 4], 1: [], 2: [], 3: [], 4: [3]}))
+g = Graph()
+g.addEdge(0, 1)
+g.addEdge(0, 2)
+g.addEdge(0, 4)
+g.addEdge(4, 3)
+
+print(g.DFS(0))
