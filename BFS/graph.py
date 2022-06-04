@@ -8,23 +8,21 @@ class Graph:
     def addEdge(self, vertex, edge):
         self.graph[vertex].append(edge)
 
-    def BFS(self, s) -> list[int]:
-        visited = []
-        queue = []
-        res = []
+    def BFS(self, start) -> list[int]:
+        visited, queue, result = [], [], []
 
-        queue.append(s)
-        visited.append(s)
+        queue.append(start)
+        visited.append(start)
 
         while queue:
-            n = queue.pop(0)
-            res.append(n)
-            for edge in self.graph[n]:
+            node = queue.pop(0)
+            result.append(node)
+            for edge in self.graph[node]:
                 if edge not in visited:
                     visited.append(edge)
                     queue.append(edge)
 
-        return res
+        return result
 
 
 g = Graph()
