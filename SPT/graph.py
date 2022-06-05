@@ -12,6 +12,7 @@ class Graph():
         self.V = vertices
         self.graph = [[0 for column in range(vertices)]
                       for row in range(vertices)]
+        print(self.graph)
 
     def printSolution(self, dist):
         print("Vertex \tDistance from Source")

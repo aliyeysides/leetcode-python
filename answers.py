@@ -190,3 +190,19 @@ class Solution:
                 r += 1
 
         return res
+
+
+class Solution:
+    def maxArea(self, height: list[int]) -> int:
+        record = 0
+        l, r = 0, len(height) - 1
+        dist = len(height) - 1
+        for w in range(dist, 0, -1):
+            if height[l] < height[r]:
+                record = max(record, w * height[l])
+                l += 1
+            else:
+                record = max(record, w * height[r])
+                r -= 1
+
+        return record
