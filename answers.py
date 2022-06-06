@@ -241,3 +241,18 @@ class Solution:
             i, head.next = remove(head.next)
             return i+1, (head, head.next)[i+1 == n]
         return remove(head)[1]
+
+
+class Solution:
+    def getIntersectionNode(self, headA, headB):
+        if headA is None or headB is None:
+            return None
+
+        pa = headA
+        pb = headB
+
+        while pa is not pb:
+            pa = headB if pa is None else pa.next
+            pb = headA if pb is None else pb.next
+
+        return pa
