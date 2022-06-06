@@ -233,5 +233,11 @@ class Solution:
         return res
 
 
-s = Solution()
-print(s.threeSum([-1, 0, 1, 2, -1, -4]))
+class Solution:
+    def removeNthFromEnd(self, head, n):
+        def remove(head):
+            if not head:
+                return 0, head
+            i, head.next = remove(head.next)
+            return i+1, (head, head.next)[i+1 == n]
+        return remove(head)[1]
