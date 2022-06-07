@@ -1,3 +1,4 @@
+import heapq
 from typing import Optional
 
 
@@ -277,3 +278,48 @@ class Solution:
 # s = Solution()
 
 # print(s.mergeTwoLists([1, 2, 4], [1, 3, 4]))
+
+class Solution:
+    def mergeKLists(self, lists: list[Optional[ListNode]]) -> Optional[ListNode]:
+        h = []
+        head = tail = ListNode()
+        for i in range(len(lists)):
+            if lists[i]:
+                heapq.heappush(h, (lists[i].val, i, lists[i]))
+
+        while h:
+            node = heapq.heappop(h)
+            node = node[2]
+            tail.next = node
+            tail = tail.next
+            if node.next:
+                i += 1
+                heapq.heappush(h, (node.next.val, i, node.next))
+
+        return head.next
+
+# Without heapq below
+
+
+class Solution:
+    def mergeKLists(self, lists: list[Optional[ListNode]]) -> Optional[ListNode]:
+        if not lists:
+            return None
+        if len(lists) == 1:
+            return lists[0]
+        mid = len(lists) // 2
+        l, r = self.mergeKLists(lists[:mid]), self.mergeKLists(lists[mid:])
+        return self.merge(l, r)
+
+    def merge(self, l, r):
+        head = tail = ListNode()
+        while l and r:
+            if l.val <= r.val:
+                tail.next = l
+                tail = tail.next
+            else:
+                tail.next = r
+                tail = tail.next
+        tail.next = l or r
+
+        return head.next
