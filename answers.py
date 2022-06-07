@@ -259,6 +259,8 @@ class Solution:
         return pa
 
 
+# merge two sorted linked lists
+
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         res = head = ListNode()
@@ -298,7 +300,7 @@ class Solution:
 
         return head.next
 
-# Without heapq below
+# without heapq
 
 
 class Solution:
@@ -323,3 +325,20 @@ class Solution:
         tail.next = l or r
 
         return head.next
+
+# merge two sorted lists
+
+
+class Solution:
+    def merge(self, nums1: list[int], m: int, nums2: list[int], n: int) -> None:
+        pa, pb, write_index = m-1, n-1, m + n - 1
+
+        while pb >= 0:
+            if pa >= 0 and nums1[pa] > nums2[pb]:
+                nums1[write_index] = nums1[pa]
+                pa -= 1
+            else:
+                nums1[write_index] = nums2[pb]
+                pb -= 1
+
+            write_index -= 1
