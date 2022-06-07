@@ -256,3 +256,24 @@ class Solution:
             pb = headA if pb is None else pb.next
 
         return pa
+
+
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        res = head = ListNode()
+
+        while list1 and list2:
+            if list1.val <= list2.val:
+                res.next = list1
+                list1 = list1.next
+            else:
+                res.next = list2
+                list2 = list2.next
+
+            res.next = list1 or list2
+        return head.next
+
+
+# s = Solution()
+
+# print(s.mergeTwoLists([1, 2, 4], [1, 3, 4]))
