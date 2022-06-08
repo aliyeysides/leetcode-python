@@ -359,3 +359,10 @@ class Solution:
         for i in range(len(nums)):
             remaining = target - nums[i]
             self.dfs(nums[i:], remaining, path+[nums[i]], res)
+
+
+class Solution:
+    def removePalindromeSub(self, S: str) -> int:
+        if not S:
+            return 0
+        return 1 if S == S[::-1] else 2
