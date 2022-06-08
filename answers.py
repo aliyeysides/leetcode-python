@@ -342,3 +342,20 @@ class Solution:
                 pb -= 1
 
             write_index -= 1
+
+
+class Solution:
+    def combinationSum(self, candidates: list[int], target: int) -> list[list[int]]:
+        res = []
+        self.dfs(candidates, target, [], res)
+        return res
+
+    def dfs(self, nums, target, path, res):
+        if target < 0:
+            return
+        if target == 0:
+            res.append(path)
+            return
+        for i in range(len(nums)):
+            remaining = target - nums[i]
+            self.dfs(nums[i:], remaining, path+[nums[i]], res)
