@@ -376,3 +376,17 @@ class Solution:
                 matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
         for row in matrix:
             row[:] = row[::-1]
+
+
+class Solution:
+    def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
+        seen = {}
+        for val in strs:
+            ana = ''.join(sorted(val))
+
+            if ana in seen:
+                seen[ana].append(val)
+            else:
+                seen[ana] = [val]
+
+        return seen.values()
