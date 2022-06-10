@@ -400,3 +400,18 @@ class Solution:
             maxSum = max(curSum, maxSum)
 
         return maxSum
+
+
+class Solution:
+    def spiralOrder(self, matrix: list[list[int]]) -> list[int]:
+        if len(matrix) == 0:
+            return []
+
+        new_matrix = []
+        for col in range(len(matrix[0])-1, -1, -1):
+            new_row = []
+            for row in range(1, len(matrix), 1):
+                new_row.append(matrix[row][col])
+            new_matrix.append(new_row)
+
+        return maxtrix[0] + self.spiralOrder(new_matrix)
