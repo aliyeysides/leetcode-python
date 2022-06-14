@@ -430,3 +430,32 @@ class Solution:
                 else:
                     triangle[i][j] += min(triangle[i-1][j-1], triangle[i-1][j])
         return min(triangle[-1])
+
+
+class Solution:
+    def mergeSort(self, unsorted_list: list[int]) -> list[int]:
+        if len(unsorted_list) == 1:
+            return unsorted_list
+
+        mid = len(unsorted_list) // 2
+        l, r = self.mergeSort(unsorted_list[:mid]), self.mergeSort(
+            unsorted_list[mid:])
+        pa = pb = 0
+        res = []
+        while pa < len(l) and pb < len(r):
+            if l[pa] < r[pb]:
+                res.append(l[pa])
+                pa += 1
+            else:
+                res.append(r[pb])
+                pb += 1
+
+        while pa < len(l):
+            res.append(l[pa])
+            pa += 1
+
+        while pb < len(r):
+            res.append(r[pb])
+            pb += 1
+
+        return res
