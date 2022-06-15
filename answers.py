@@ -14,11 +14,6 @@ class Solution:
             seen[value] = i
 
 
-test = Solution()
-
-# print(test.twoSum([3, 2, 3], 6))
-
-
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
@@ -48,8 +43,6 @@ class Solution:
 
 test = Solution()
 
-# print(test.addTwoNumbers([5, 4], [6, 3]))
-
 
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
@@ -67,8 +60,6 @@ class Solution:
 
 
 test = Solution()
-
-# print(test.lengthOfLongestSubstring("tmmzuxt"))
 
 
 class Solution(object):
@@ -103,9 +94,6 @@ def myAtoi(s: str) -> int:
         ret = ret*10 + ord(ls[i]) - ord('0')
         i += 1
     return max(-2**31, min(sign * ret, 2**31-1))
-
-
-# print(myAtoi('-2147483649'))
 
 
 class Solution:
@@ -259,8 +247,6 @@ class Solution:
         return pa
 
 
-# merge two sorted linked lists
-
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         res = head = ListNode()
@@ -276,10 +262,6 @@ class Solution:
             res.next = list1 or list2
         return head.next
 
-
-# s = Solution()
-
-# print(s.mergeTwoLists([1, 2, 4], [1, 3, 4]))
 
 class Solution:
     def mergeKLists(self, lists: list[Optional[ListNode]]) -> Optional[ListNode]:
