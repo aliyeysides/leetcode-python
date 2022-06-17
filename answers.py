@@ -2,6 +2,21 @@ import heapq
 from typing import Optional
 
 
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+################################################################
+
+
 class Solution:
     def twoSum(self, nums: list[int], target: int) -> list[int]:
         seen = {}
@@ -12,12 +27,6 @@ class Solution:
                 return [seen[remaining], i]
 
             seen[value] = i
-
-
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
 
 
 class Solution:
@@ -41,9 +50,6 @@ class Solution:
         return dummy.next
 
 
-test = Solution()
-
-
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         used = {}
@@ -57,9 +63,6 @@ class Solution:
             used[c] = i
 
         return max_length
-
-
-test = Solution()
 
 
 class Solution(object):
@@ -265,28 +268,6 @@ class Solution:
 
 class Solution:
     def mergeKLists(self, lists: list[Optional[ListNode]]) -> Optional[ListNode]:
-        h = []
-        head = tail = ListNode()
-        for i in range(len(lists)):
-            if lists[i]:
-                heapq.heappush(h, (lists[i].val, i, lists[i]))
-
-        while h:
-            node = heapq.heappop(h)
-            node = node[2]
-            tail.next = node
-            tail = tail.next
-            if node.next:
-                i += 1
-                heapq.heappush(h, (node.next.val, i, node.next))
-
-        return head.next
-
-# without heapq
-
-
-class Solution:
-    def mergeKLists(self, lists: list[Optional[ListNode]]) -> Optional[ListNode]:
         if not lists:
             return None
         if len(lists) == 1:
@@ -307,8 +288,6 @@ class Solution:
         tail.next = l or r
 
         return head.next
-
-# merge two sorted lists
 
 
 class Solution:
@@ -451,3 +430,21 @@ class Solution:
                 return False
             m = max(m, i+n)
         return True
+
+
+class Solution:
+    ans = 0
+
+    def minCameraCover(self, root: Optional[TreeNode]) -> int:
+        def dfs(node: TreeNode) -> int:
+            if not node:
+                return 0
+            val = dfs(node.left) + dfs(node.right)
+            if val == 0:
+                return 3
+            if val < 3:
+                return 0
+            self.ans += 1
+            return 1
+
+        return self.ans + 1 if dfs(root) > 2 else self.ans
