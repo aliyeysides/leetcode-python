@@ -458,3 +458,20 @@ class Solution:
             else:
                 out.append(i)
         return out
+
+
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        def dfs(down, right, memo):
+            if down == 1 or right == 1:
+                return 1
+
+            if (down, right) in memo:
+                return memo[(down, right)]
+
+            memo[(down, right)] = dfs(down-1, right, memo) + \
+                dfs(down, right-1, memo)
+
+            return memo[(down, right)]
+
+        return dfs(m, n, {})
