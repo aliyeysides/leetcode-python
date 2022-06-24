@@ -1,4 +1,5 @@
 from typing import Optional
+from collections import deque
 
 
 class TreeNode:
@@ -475,3 +476,28 @@ class Solution:
             return memo[(down, right)]
 
         return dfs(m, n, {})
+
+
+class Solution:
+    def map_gate_distances(dungeon_map: list[list[int]]) -> list[list[int]]:
+        rows, cols = len(dungeon_map), len(dungeon_map[0])
+        queue = deque()
+        INF = 2147483647
+        directions = [(-1, 0), (0, 1), (1, 0), (-1, 0)]
+
+        for r in range(rows):
+            for c in range(cols):
+                if dungeon_map[r][c] == 0:
+                    queue.append((r, c))
+
+        while queue:
+            row, col = queue.popleft()
+            for row_offset, col_offset in directions:
+                total_row = row + row_offset
+                total_col = col + col_offset
+                if total_row >= 0 and total_row < rows and total_col >= 0 and total_col < cols:
+                    if dungeon_map[total_row][total_col] == INF:
+                        dungeon_map[total_row][total_col] = dungeon_map[row][col] + 1
+                        queue.append((total_row, total_col))
+
+        return dungeon_map
