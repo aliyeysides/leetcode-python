@@ -375,7 +375,7 @@ class Solution:
                 new_row.append(matrix[row][col])
             new_matrix.append(new_row)
 
-        return maxtrix[0] + self.spiralOrder(new_matrix)
+        return matrix[0] + self.spiralOrder(new_matrix)
 
 
 class Solution:
@@ -501,3 +501,27 @@ class Solution:
                         queue.append((total_row, total_col))
 
         return dungeon_map
+
+
+class Solution:
+    def shipWithinDays(self, weights: list[int], days: int) -> int:
+        def feasible(cap: int):
+            trips = 1
+            total = 0
+            for w in weights:
+                total += w
+                if total > cap:
+                    trips += 1
+                    total = w
+                    if trips > days:
+                        return False
+            return True
+
+        left, right = max(weights), sum(weights)
+        while left < right:
+            mid = left + (right - left) // 2
+            if feasible(mid):
+                right = mid
+            else:
+                left = mid + 1
+        return left
