@@ -1,5 +1,5 @@
 from typing import Optional
-from collections import deque
+from collections import deque, defaultdict
 
 
 class TreeNode:
@@ -527,7 +527,7 @@ class Solution:
         return left
 
 
-class Solution(object):
+class Solution:
     def openLock(self, deadends, target):
         def neighbors(node):
             for i in range(4):
@@ -548,3 +548,26 @@ class Solution(object):
                     seen.add(nei)
                     queue.append((nei, depth+1))
         return -1
+
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: list[str]) -> int:
+        all_comb_dict = defaultdict(list)
+        for word in wordList:
+            for i in range(len(word)):
+                k = word[:i] + '*' + word[i+1:]
+                all_comb_dict[k].append(word)
+
+        queue = deque([(beginWord, 1)])
+        seen = {beginWord}
+        while queue:
+            node, depth = queue.popleft()
+            if node == endWord: return depth
+            for i in range(len(node)):
+                intr = node[:i] + '*' + node[i+1:]
+                for nei in all_comb_dict[intr]:
+                    if nei not in seen:
+                        seen.add(nei)
+                        queue.append((nei, depth+1))
+
+        return 0
+    
