@@ -571,3 +571,35 @@ class Solution:
 
         return 0
     
+class Solution:
+    def num_steps(init_pos: list[list[int]]) -> int:
+        rows, cols = len(init_pos), len(init_pos[0])
+        
+        def neighbors(pos, start):
+            r, c = start
+            dir = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+            for row, col in dir:
+                copy = list(list(i) for i in pos)
+                row_offset = row + r
+                col_offset = col + c
+                if row_offset >= 0 and row_offset < rows and col_offset >= 0 and col_offset < cols:
+                    copy[row_offset][col_offset], copy[r][c] = copy[r][c], copy[row_offset][col_offset]
+                    yield copy
+                
+        queue = deque([(init_pos, 0)])
+        seen = {tuple(tuple(i) for i in init_pos)}
+        while queue:
+            node, depth = queue.popleft()
+            if node == [[1,2,3], [4,5,0]]: return depth
+            zero = (0, 0)
+            for r in range(rows):
+                for c in range(cols):
+                    if node[r][c] == 0:
+                        zero = (r, c)
+            for nei in neighbors(node, zero):
+                k = tuple(tuple(i) for i in nei)
+                if k not in seen:
+                    seen.add(k)
+                    queue.append((nei, depth+1))
+                    
+        return -1
