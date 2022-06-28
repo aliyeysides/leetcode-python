@@ -1,3 +1,4 @@
+from tracemalloc import start
 from typing import Optional
 from collections import deque, defaultdict
 
@@ -603,3 +604,22 @@ class Solution:
                     queue.append((nei, depth+1))
                     
         return -1
+
+class Solution:
+    def totalSum(powers):
+        n = len(powers)
+        def dfs(start_index, total, memo):
+            if start_index == n:
+                return total % ((10 ** 9) + 7)
+            
+            if total in memo:
+                return memo[total]
+
+            for i in range(start_index + 1, n + 1):
+                total += min(powers[start_index:i]) * sum(powers[start_index:i])
+                ans = dfs(start_index+1, total, {})
+                memo[total] = ans
+
+            return ans
+                
+        return dfs(0, 0, {})
