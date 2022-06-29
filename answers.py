@@ -1,6 +1,6 @@
-from tracemalloc import start
 from typing import Optional
 from collections import deque, defaultdict
+import sys
 
 
 class TreeNode:
@@ -542,13 +542,16 @@ class Solution:
         seen = {'0000'}
         while queue:
             node, depth = queue.popleft()
-            if node == target: return depth
-            if node in dead: continue
+            if node == target:
+                return depth
+            if node in dead:
+                continue
             for nei in neighbors(node):
                 if nei not in seen:
                     seen.add(nei)
                     queue.append((nei, depth+1))
         return -1
+
 
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: list[str]) -> int:
@@ -562,7 +565,8 @@ class Solution:
         seen = {beginWord}
         while queue:
             node, depth = queue.popleft()
-            if node == endWord: return depth
+            if node == endWord:
+                return depth
             for i in range(len(node)):
                 intr = node[:i] + '*' + node[i+1:]
                 for nei in all_comb_dict[intr]:
@@ -571,11 +575,12 @@ class Solution:
                         queue.append((nei, depth+1))
 
         return 0
-    
+
+
 class Solution:
     def num_steps(init_pos: list[list[int]]) -> int:
         rows, cols = len(init_pos), len(init_pos[0])
-        
+
         def neighbors(pos, start):
             r, c = start
             dir = [(-1, 0), (0, 1), (1, 0), (0, -1)]
@@ -586,12 +591,13 @@ class Solution:
                 if row_offset >= 0 and row_offset < rows and col_offset >= 0 and col_offset < cols:
                     copy[row_offset][col_offset], copy[r][c] = copy[r][c], copy[row_offset][col_offset]
                     yield copy
-                
+
         queue = deque([(init_pos, 0)])
         seen = {tuple(tuple(i) for i in init_pos)}
         while queue:
             node, depth = queue.popleft()
-            if node == [[1,2,3], [4,5,0]]: return depth
+            if node == [[1, 2, 3], [4, 5, 0]]:
+                return depth
             zero = (0, 0)
             for r in range(rows):
                 for c in range(cols):
@@ -602,24 +608,43 @@ class Solution:
                 if k not in seen:
                     seen.add(k)
                     queue.append((nei, depth+1))
-                    
+
         return -1
+
 
 class Solution:
     def totalSum(powers):
         n = len(powers)
+
         def dfs(start_index, total, memo):
             if start_index == n:
                 return total % ((10 ** 9) + 7)
-            
+
             if total in memo:
                 return memo[total]
 
             for i in range(start_index + 1, n + 1):
-                total += min(powers[start_index:i]) * sum(powers[start_index:i])
+                total += min(powers[start_index:i]) * \
+                    sum(powers[start_index:i])
                 ans = dfs(start_index+1, total, {})
                 memo[total] = ans
 
             return ans
-                
+
         return dfs(0, 0, {})
+
+
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        INF = sys.maxsize
+
+        def dfs(node, lower, upper):
+            if not node:
+                return True
+
+            if lower < node.val < upper:
+                return dfs(node.left, lower, node.val) and dfs(node.right, node.val, upper)
+            else:
+                return False
+
+        return dfs(root, -INF, INF)
