@@ -658,3 +658,26 @@ class Solution:
                 slow += 1
                 arr[slow] = arr[fast]
         return slow + 1
+
+
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> list[int]:
+        ns, np = len(s), len(p)
+        s_count, p_count = [0] * 26, [0] * 26
+        ans = []
+
+        if ns < np:
+            return ans
+
+        for c in p:
+            p_count[ord(c) - ord('a')] += 1
+
+        for end in range(ns):
+            s_count[ord(s[end]) - ord('a')] += 1
+            if end >= np:
+                s_count[ord(s[end - np]) - ord('a')] -= 1
+
+            if s_count == p_count:
+                ans.append(end - np + 1)
+
+        return ans
