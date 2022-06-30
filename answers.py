@@ -718,3 +718,29 @@ class Solution:
             r += 1
 
         return "" if ans[0] == sys.maxsize else ans[ans[1]:ans[2]+1]
+
+
+class Solution:
+    def prefixSum(self, arr: list[int], target: int) -> tuple(int, int):
+        prefix_sum = {0: 0}
+        cur_sum = 0
+        for i, val in enumerate(arr):
+            cur_sum += val
+            diff = cur_sum - target
+            if diff in prefix_sum:
+                return (prefix_sum[diff], i + 1)
+
+            prefix_sum[cur_sum] = i + 1
+
+    def prefixSumCount(self, arr: list[int], target: int) -> int:
+        prefix_sum = Counter()
+        prefix_sum[0] = 1
+        cur_sum = 0
+        count = 0
+        for i in range(len(arr)):
+            cur_sum += arr[i]
+            diff = cur_sum - target
+            if diff in prefix_sum:
+                count += prefix_sum[diff]
+
+            prefix_sum[cur_sum] += 1
