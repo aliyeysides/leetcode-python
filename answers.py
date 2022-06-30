@@ -1,5 +1,5 @@
 from typing import Optional
-from collections import deque, defaultdict
+from collections import deque, defaultdict, Counter
 import sys
 
 
@@ -681,3 +681,40 @@ class Solution:
                 ans.append(end - np + 1)
 
         return ans
+
+
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        if not t or not s or s < t:
+            return ""
+
+        dict_t = Counter(t)
+        window = {}
+        l, r = 0, 0
+        formed = 0
+        required = len(dict_t)
+        ans = sys.maxsize, None, None
+        n = len(s)
+
+        while r < n:
+            ch = s[r]
+            window[ch] = window.get(ch, 0) + 1
+
+            if window[ch] == dict_t[ch]:
+                formed += 1
+
+            while l <= r and formed == required:
+                ch = s[l]
+                window[ch] -= 1
+
+                if r - l + 1 < ans[0]:
+                    ans = (r - l + 1, l, r)
+
+                if window[ch] < dict_t[ch]:
+                    formed -= 1
+
+                l += 1
+
+            r += 1
+
+        return "" if ans[0] == sys.maxsize else ans[ans[1]:ans[2]+1]
