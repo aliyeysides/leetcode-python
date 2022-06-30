@@ -747,8 +747,8 @@ class Solution:
 
 
 class Solution:
-    def has_cycle(self, nodes: ListNode) -> bool:
-        slow = fast = nodes
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        slow = fast = head
         while fast and fast.next:
             fast = fast.next.next
             if fast is slow:
