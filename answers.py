@@ -744,3 +744,14 @@ class Solution:
                 count += prefix_sum[diff]
 
             prefix_sum[cur_sum] += 1
+
+
+class Solution:
+    def has_cycle(self, nodes: ListNode) -> bool:
+        slow = fast = nodes
+        while fast and fast.next:
+            fast = fast.next.next
+            if fast is slow:
+                return True
+            slow = slow.next
+        return False
