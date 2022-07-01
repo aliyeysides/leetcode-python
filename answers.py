@@ -783,3 +783,44 @@ class Solution:
 
         total += max(sum1, sum2)
         return total % MODULO_AMT
+
+
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        rows, cols = len(board), len(board[0])
+        path = []
+
+        def neighbors(root):
+            r, c = root
+            directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+            for row, col in directions:
+                row_offset = r + row
+                col_offset = c + col
+                if row_offset >= 0 and row_offset < rows and col_offset >= 0 and col_offset < cols:
+                    yield (row_offset, col_offset)
+
+        def dfs(root, path):
+            row, col = root
+            if ''.join(path) == word:
+                return True
+
+            next_letter = word[len(path)]
+
+            board[row][col] = '#'
+            for r, c in neighbors(root):
+                if board[r][c] == next_letter:
+                    if dfs((r, c), path + [next_letter]):
+                        return True
+
+            board[row][col] = path[-1]
+
+            return False
+
+        for row in range(rows):
+            for col in range(cols):
+                cell = (row, col)
+                if board[row][col] == word[0]:
+                    if dfs(cell, path + [board[row][col]]):
+                        return True
+
+        return False
