@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from collections import deque, defaultdict, Counter
 import sys
 
@@ -755,3 +755,31 @@ class Solution:
                 return True
             slow = slow.next
         return False
+
+
+class Solution:
+    def maximum_score(arr1: List[int], arr2: List[int]) -> int:
+        n1, n2 = len(arr1), len(arr2)
+        p1, p2 = 0, 0
+        sum1, sum2 = 0, 0
+        total = 0
+        MODULO_AMT = 10 ** 9 + 7
+
+        while p1 < n1 or p2 < n2:
+            if p1 < n1 and p2 < n2 and arr1[p1] == arr2[p2]:
+                total += max(sum1, sum2) + arr1[p1]
+                sum1 = 0
+                sum2 = 0
+                p1 += 1
+                p2 += 1
+                continue
+
+            if p1 == n1 or (p2 != n2 and arr1[p1] > arr2[p2]):
+                sum2 += arr2[p2]
+                p2 += 1
+            else:
+                sum1 += arr1[p1]
+                p1 += 1
+
+        total += max(sum1, sum2)
+        return total % MODULO_AMT
