@@ -174,7 +174,6 @@ class Solution:
 
             l, r = i, i + 1
             while l >= 0 and r < len(s) and s[l] == s[r]:
-                print('test')
                 if resLen <= len(s[l:r+1]):
                     res = s[l:r+1]
                     resLen = len(res)
@@ -263,7 +262,9 @@ class Solution:
                 res.next = list2
                 list2 = list2.next
 
-            res.next = list1 or list2
+            res = res.next
+
+        res.next = list1 or list2
         return head.next
 
 
