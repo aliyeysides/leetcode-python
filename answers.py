@@ -283,10 +283,11 @@ class Solution:
         while l and r:
             if l.val <= r.val:
                 tail.next = l
-                tail = tail.next
+                l = l.next
             else:
                 tail.next = r
-                tail = tail.next
+                r = r.next
+            tail = tail.next
         tail.next = l or r
 
         return head.next
