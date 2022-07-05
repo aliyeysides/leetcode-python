@@ -308,19 +308,19 @@ class Solution:
 
 class Solution:
     def combinationSum(self, candidates: list[int], target: int) -> list[list[int]]:
-        res = []
-        self.dfs(candidates, target, [], res)
-        return res
+        def dfs(start_index, path, remaining):
+            if remaining == 0:
+                ans.append(path)
+                return
 
-    def dfs(self, nums, target, path, res):
-        if target < 0:
-            return
-        if target == 0:
-            res.append(path)
-            return
-        for i in range(len(nums)):
-            remaining = target - nums[i]
-            self.dfs(nums[i:], remaining, path+[nums[i]], res)
+            for i in range(start_index, len(candidates)):
+                if remaining - candidates[i] >= 0:
+                    dfs(i, path + [candidates[i]], remaining - candidates[i])
+
+            return ans
+
+        ans = []
+        return dfs(0, [], target)
 
 
 class Solution:
@@ -824,3 +824,19 @@ class Solution:
                         return True
 
         return False
+
+
+class Solution:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        def dfs(node1, node2):
+            if not node1 and not node2:
+                return True
+            if not node1 or not node2:
+                return False
+
+            if node1.val == node2.val:
+                return dfs(node1.left, node2.left) and dfs(node1.right, node2.right)
+            else:
+                return False
+
+        return dfs(p, q)
