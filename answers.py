@@ -482,13 +482,7 @@ class Solution:
 
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
-        dp = [[0 for _ in range(n)] for _ in range(m)]
-
-        for r in range(m):
-            dp[r][0] = 1
-
-        for c in range(n):
-            dp[0][c] = 1
+        dp = [[1] * n for _ in range(m)]
 
         for r in range(1, m):
             for c in range(1, n):
