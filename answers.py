@@ -931,3 +931,33 @@ class Solution:
                     grid += min(grid[r-1][c], grid[r][c-1])
 
         return grid[-1][-1]
+
+
+class Solution:
+    def plumber(grid: List[List[int]]) -> int:
+
+        for r in range(len(grid)):
+            grid[r].append(-1)
+
+        rows, cols = len(grid), len(grid[0])
+
+        for r in range(rows):
+            total = 0
+            start = 0
+            for c in range(cols):
+                if grid[r][c] != -1:
+                    total += grid[r][c]
+                    if r > 0:
+                        prevMax = max(prevMax, grid[r-1][c])
+                else:
+                    for i in range(start, c):
+                        if r == 0:
+                            grid[r][i] = total
+                        elif prevMax == -1:
+                            grid[r][i] = -1
+                        else:
+                            grid[r][i] = prevMax + total
+                    start = c + 1
+                    total = 0
+                    prevMax = -1
+        return max(grid[-1])
