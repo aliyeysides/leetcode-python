@@ -961,3 +961,19 @@ class Solution:
                     total = 0
                     prevMax = -1
         return max(grid[-1])
+
+
+class Solution:
+    def longest_sub_len(nums: List[int]) -> int:
+        n = len(nums)
+        dp = [1] * n
+        record = 0
+
+        for i in range(n):
+            for j in range(i):
+                if nums[j] >= nums[i]:
+                    continue
+                dp[i] = max(dp[i], dp[j] + 1)
+            record = max(record, dp[i])
+
+        return record
