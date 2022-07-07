@@ -1022,3 +1022,24 @@ class Solution:
             return clone
 
         return dfs(node, {})
+
+
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        def dfs(start_index, memo):
+            if start_index == len(s):
+                return True
+
+            if start_index in memo:
+                return memo[start_index]
+
+            ok = False
+            for word in wordDict:
+                if s[start_index:].startswith(word):
+                    if dfs(start_index + len(word), memo):
+                        ok = True
+                        break
+
+            memo[start_index] = ok
+            return memo[start_index]
+        return dfs(0, {})
