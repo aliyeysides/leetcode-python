@@ -1076,3 +1076,19 @@ class Solution:
             slow = slow.next
             fast = fast.next.next
         return slow
+
+
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        prev, curr = None, slow
+        while curr:
+            curr.next, prev, curr = prev, curr, curr.next
+
+        while prev.next:
+            head.next, head = prev, head.next
+            prev.next, prev = head, prev.next
