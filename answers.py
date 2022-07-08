@@ -914,7 +914,7 @@ class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         dp = [inf] * (amount + 1)
         dp[0] = 0
-        for i in range(1, range + 1):
+        for i in range(1, amount + 1):
             for coin in coins:
                 if i - coin >= 0:
                     dp[i] = min(dp[i-coin], dp[i])
