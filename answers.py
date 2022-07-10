@@ -739,7 +739,7 @@ class Solution:
 
 
 class Solution:
-    def prefixSum(self, arr: list[int], target: int) -> tuple(int, int):
+    def prefixSum(self, arr: list[int], target: int) -> tuple[int, int]:
         prefix_sum = {0: 0}
         cur_sum = 0
         for i, val in enumerate(arr):
