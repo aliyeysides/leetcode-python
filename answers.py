@@ -2,6 +2,7 @@ from typing import Optional, List
 from collections import deque, defaultdict, Counter
 import sys
 from math import inf
+from heapq import heappush, heappop
 
 
 class Node:
@@ -296,6 +297,23 @@ class Solution:
         tail.next = l or r
 
         return head.next
+
+
+class Solution:
+    def mergeKLists(self, lists: list[Optional[ListNode]]) -> Optional[ListNode]:
+        res = []
+        heap = []
+
+        for arr in lists:
+            heappush(heap, (arr[0], arr, 0))
+
+        while heap:
+            val, arr, index = heappop(heap)
+            res.append(val)
+            index += 1
+            heappush(heap, (arr[index], arr, index))
+
+        return res
 
 
 class Solution:
