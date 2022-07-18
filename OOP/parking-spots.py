@@ -27,49 +27,88 @@ class Size(Enum):
     LARGE = auto()
 
 
+SIZES = {
+    'Small': Size.SMALL,
+    'Medium': Size.MEDIUM,
+    'Large': Size.LARGE
+}
+
+SIZE_LABELS = {e: n for n, e in SIZES.items()}
+
+
 class Car:
-    SIZES = {
-        'Small': Size.SMALL,
-        'Medium': Size.MEDIUM,
-        'Large': Size.LARGE
-    }
-
-    SIZE_LABELS = {e: n for n, e in SIZES.items()}
-
     def __init__(self, size: str, color: str, brand: str):
-        self.__size = self.SIZES[size]
+        self.__size = SIZES[size]
         self.__color = color
         self.__brand = brand
 
     def __str__(self) -> str:
-        return f"{self.SIZE_LABELS[self.__size]} {self.__color} {self.__brand}"
+        return f"{SIZE_LABELS[self.__size]} {self.__color} {self.__brand}"
+
+
+class ParkingSpot:
+    def __init__(self):
+        self.parked_car = None
+
+    def park(self, car: Car) -> bool:
+        if self.parked_car:
+            return False
+        self.parked_car = car
+        return True
+
+    def leave(self) -> bool:
+        if self.parked_car:
+            self.parked_car = None
+            return True
+        return False
+
+    def __str__(self) -> str:
+        if self.parked_car:
+            return str(self.parked_car)
+        return "Empty"
 
 
 class ParkingLot:
-    def __init__(self, spots: int):
-        self.__spots = [0] * spots
+    def __init__(self, size: int):
+        self.spots: list[ParkingSpot] = []
+        self.__size = size
+        self.__free_spots = size
+        for _ in range(size):
+            self.spots.append(ParkingSpot())
 
-    def park(self, spot: int, car: Car):
-        if self.__spots[spot] == 0:
-            self.__spots[spot] = car
-        # else:
-            # for space in self.__spots
+    def park(self, spot: int, car: Car) -> bool:
+        for space in range(spot, self.__size):
+            if self.spots[space].park(car):
+                self.__free_spots -= 1
+                return True
+        return False
+
+    def leave(self, spot: int) -> None:
+        if self.spots[spot].leave():
+            self.__free_spots += 1
+
+    def free_spots(self) -> int:
+        return self.__free_spots
 
     def __str__(self) -> str:
-        return f"{self.__spots}"
+        return f"{self.spots}"
 
 
 def parking_system(n: int, instructions: List[List[str]]) -> List[str]:
-    system = ParkingLot()
+    parking_lot = ParkingLot(n)
+    ans = []
     for instruction in instructions:
-        command = instruction[0]
+        command, *args = instruction
         if command == 'park':
-            spot = instruction[1]
-            car_size = instruction[2]
-            car_color = instruction[3]
-            car_brand = instruction[4]
-            car = Car(car_size, car_color, car_brand)
-            system.park(spot, car)
+            spot, *car = args
+            parking_lot.park(int(spot), Car(*car))
+        elif command == "remove":
+            parking_lot.leave(int(args[0]))
+        elif command == "print":
+            ans.append(str(parking_lot.spots[int(args[0])]))
+        elif command == "print_free_spots":
+            ans.append(str(parking_lot.free_spots()))
+    return ans
 
 
 if __name__ == '__main__':
